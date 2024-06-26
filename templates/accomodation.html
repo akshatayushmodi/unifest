@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Accommodation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 20px;
+            background-color: #ffdfd4;
+            color: #d9534f;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: fadeOut 10s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            90% { opacity: 0.5; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: white;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        input[type="submit"], .bttn {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover, .bttn:hover {
+            background-color: #4cae4c;
+        }
+
+        .back-button, .payment-button {
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .bttn {
+            display: inline-block;
+            background-color: #f0ad4e;
+            text-decoration: none;
+            color: white !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h1>Request Accommodation Food</h1>
+
+    <form action="{{ url_for('request_accommodation') }}" method="POST">
+        {% if status == "allocated" %}
+        <p>Accommodation already Allocated</p>
+         <input type="hidden" value="Accommodation already Allocated">
+        {% else %}
+        <p>Click the button below to request accommodation:</p>
+        <input type="submit" value="Request Accommodation">
+        {% endif %}
+    </form>
+    <h3>Your selected food preference: {{ preference }}</h3>
+<form action="{{ url_for('update_food_preference') }}" method="POST">
+        <label for="food_preference">Food Preference:</label><br>
+        <select id="food_preference" name="food_preference" required>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Non-Vegetarian">Non-Vegetarian</option>
+        </select><br><br>
+        <input type="submit" value="Update Food Preference">
+    </form>
+    <a href="/payment" class="payment-button"><button class="bttn">Make Payment</button></a>
+    <a href="/" class="back-button"><button class="bttn">Back</button></a>
+</body>
+</html>

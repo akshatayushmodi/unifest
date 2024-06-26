@@ -1,0 +1,176 @@
+{% extends 'basic_student.html' %}
+{% block title %}
+UniFest - Techno-Culture Festival
+{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        /* Background gradient */
+        background-image: linear-gradient(to bottom, #000000, #1a1a66);
+        /* Vertical gradient from black to bluish */
+        color: #fff;
+    }
+
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 36px;
+    }
+
+    nav {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 18px;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #f39c12;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+
+    .intro {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .event-info {
+        background-color: rgba(255, 246, 255, 0.9);
+        color: black;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+<style>
+    /* Flash messages styling */
+    .flash-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 10px;
+        background-color: #f8d7da;
+        /* Error message background color */
+        color: #721c24;
+        /* Error message text color */
+        border-radius: 5px;
+        animation: fadeOut 8s forwards;
+        /* Automatically fade out after 8 seconds */
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+            display: none;
+        }
+    }
+</style>
+<header>
+    <h1>UniFest - Techno-Culture Festival</h1>
+</header>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <nav>
+        <a href="{{ url_for('events_participants') }}">Events</a>
+        <a href="#about">About</a>
+        <a href="{{ url_for('view_profile') }}">Profile</a>
+        <a href="{{ url_for('winners') }}">View Prize Winners</a>
+        <!-- {% if stats == "Approved" %}
+        <a href="#contact">Approved</a>
+        {% elif stats == "Applied" %}
+        <a href="#contact">Applied</a> -->
+        <!-- {% else %} -->
+        <a href="{{ url_for('volunteer_application') }}">Apply for volunteer</a>
+        <!-- {% endif %} -->
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="about">
+            <div class="intro">
+                <h2>Welcome to UniFest!</h2>
+                <p>UniFest is an annual Techno-Culture Festival organized by our university, bringing together students
+                    from various disciplines to celebrate creativity, innovation, and cultural diversity.</p>
+                <p>Join us for a week filled with exciting events, workshops, competitions, and performances!</p>
+            </div>
+        </section>
+
+        <div class="events">
+            <section id="events" class="event-info">
+                <h2>Exciting Workshops</h2>
+                <p class="events-info">Explore hands-on workshops on robotics, artificial intelligence, and sustainable
+                    development.</p>
+            </section>
+
+            <section id="accommodation" class="event-info">
+                <h2>Cultural Performances</h2>
+                <p>Experience mesmerizing cultural performances from around the world, including music, dance, and
+                    theater.</p>
+            </section>
+
+            <section id="profile" class="event-info">
+                <h2>Interactive Exhibitions</h2>
+                <p>Engage with interactive exhibitions showcasing the latest innovations in technology, art, and design.
+                </p>
+            </section>
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <p>For inquiries and more information, please contact:</p>
+                <p>Email: info@unifest.com</p>
+                <p>Phone: +1 123 456 7890</p>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 UniFest - Techno-Culture Festival
+    </footer>
+    {% endblock %}
+</body>

@@ -1,0 +1,112 @@
+{% extends 'basic_ext_participant.html' %}
+{% block title %}
+    UniFest - Techno-Culture Festival
+{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        /* Background gradient */
+        background-image: linear-gradient(to bottom, #000000, #1a1a66); /* Vertical gradient from black to bluish */
+        color: #fff;
+    }
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    h1 {
+        margin: 0;
+        font-size: 36px;
+    }
+    nav {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        text-align: center;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 18px;
+        transition: color 0.3s ease;
+    }
+    nav a:hover {
+        color: #f39c12;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+    .intro {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .scroll-content {
+        margin-top: 40px;
+    }
+    .scroll-section {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+</style>
+
+<header>
+    <h1>UniFest - Techno-Culture Festival</h1>
+</header>
+<nav>
+    <a href="{{ url_for('events_participants') }}">Events</a>
+    <a href="#about">About</a>
+    <a href="{{ url_for('request_accommodation') }}">Accommodation & Food</a>
+    <a href="{{ url_for('view_profile') }}">Profile</a>
+    <a href="{{ url_for('winners') }}">View Prize Winners</a>
+    <a href="#contact">Contact</a>
+</nav>
+<div class="container">
+    <section id="about">
+        <div class="intro">
+            <h2>Welcome to UniFest!</h2>
+            <p>UniFest is an annual Techno-Culture Festival organized by our university, bringing together students from various disciplines to celebrate creativity, innovation, and cultural diversity.</p>
+            <p>Join us for a week filled with exciting events, workshops, competitions, and performances!</p>
+        </div>
+    </section>
+
+    <!-- Additional content for scrolling -->
+    <div class="scroll-content">
+        <section id="events" class="scroll-section">
+            <h2>Exciting Workshops</h2>
+            <p>Explore hands-on workshops on robotics, artificial intelligence, and sustainable development.</p>
+        </section>
+
+        <section id="accommodation" class="scroll-section">
+            <h2>Cultural Performances</h2>
+            <p>Experience mesmerizing cultural performances from around the world, including music, dance, and theater.</p>
+        </section>
+
+        <section id="profile" class="scroll-section">
+            <h2>Interactive Exhibitions</h2>
+            <p>Engage with interactive exhibitions showcasing the latest innovations in technology, art, and design.</p>
+        </section>
+    </div>
+
+<section id="contact">
+        <h2>Contact Us</h2>
+        <p>For inquiries and more information, please contact:</p>
+        <p>Email: info@unifest.com</p>
+        <p>Phone: +1 123 456 7890</p>
+    </section>
+</div>
+
+<footer>
+    &copy; 2024 UniFest - Techno-Culture Festival
+</footer>
+{% endblock %}

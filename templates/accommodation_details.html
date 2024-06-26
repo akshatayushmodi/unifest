@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accommodation Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden; /* Ensures the content respects the border-radius */
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* Adjust or remove based on preference */
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            border-top-left-radius: 10px; /* Rounded top-left corner for the header */
+            border-top-right-radius: 10px; /* Rounded top-right corner for the header */
+        }
+
+        th:first-child {
+            border-top-left-radius: 10px; /* Ensures the top-left corner is rounded */
+        }
+
+        th:last-child {
+            border-top-right-radius: 10px; /* Ensures the top-right corner is rounded */
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 10px; /* Rounds the bottom-left corner of the last row */
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 10px; /* Rounds the bottom-right corner of the last row */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .bttn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .bttn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Accommodation Details</h1>
+    {% if accommodations %}
+    <table>
+        <thead>
+            <tr>
+                <th>Accommodation Name</th>
+                <th>Accommodation Capacity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for accommodation in accommodations %}
+            <tr>
+                <td>{{ accommodation.name }}</td>
+                <td>{{ accommodation.capacity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center;">No accommodations found.</p>
+    {% endif %}
+    <a href="/" class="back-button"><button class="bttn">Back</button></a>
+</body>
+</html>

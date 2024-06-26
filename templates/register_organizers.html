@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Responsive Registration Form</title>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1.0" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-image: url('../../static/reg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 28px;
+            margin: 0 28px;
+            border-radius: 10px;
+            box-shadow: inset -2px 2px 2px white;
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 6px;
+            color: white;
+            text-shadow: 2px 2px 2px black;
+            border-bottom: solid 1px white;
+        }
+
+        .main-user-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .user-input-box:nth-child(2n) {
+            justify-content: end;
+        }
+
+        .user-input-box {
+            display: flex;
+            flex-wrap: wrap;
+            width: 50%;
+            padding-bottom: 15px;
+        }
+
+        .user-input-box label {
+            width: 95%;
+            color: white;
+            font-size: 20px;
+            font-weight: 400;
+            margin: 5px 0;
+        }
+
+        .user-input-box input {
+            height: 40px;
+            width: 95%;
+            border-radius: 7px;
+            outline: none;
+            border: 1px solid grey;
+            padding: 0 10px;
+        }
+
+        .position-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            border-bottom: 1px solid white;
+        }
+
+        .position-category {
+            margin: 15px 0;
+            color: white;
+        }
+
+        .position-category label {
+            padding: 0 20px 0 5px;
+        }
+
+        .position-category label,
+        .position-category input,
+        .form-submit-btn input {
+            cursor: pointer;
+        }
+
+        .form-submit-btn {
+            margin-top: 40px;
+        }
+
+        .form-submit-btn input {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            color: rgb(209, 209, 209);
+            background: rgba(63, 114, 76, 0.7);
+        }
+
+        .form-submit-btn input:hover {
+            background: rgba(56, 204, 93, 0.7);
+            color: rgb(255, 255, 255);
+        }
+
+        @media(max-width: 600px) {
+            .container {
+                min-width: 280px;
+            }
+
+            .user-input-box {
+                margin-bottom: 12px;
+                width: 100%;
+            }
+
+            .user-input-box:nth-child(2n) {
+                justify-content: space-between;
+            }
+
+            .position-category {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .main-user-info {
+                max-height: 380px;
+                overflow: auto;
+            }
+
+            .main-user-info::-webkit-scrollbar {
+                width: 0;
+            }
+        }
+    </style>
+    <style>
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            /* Error message background color */
+            color: #721c24;
+            /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 8s forwards;
+            /* Automatically fade out after 8 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h1 class="form-title">Organizer Registration</h1>
+        <form method="POST">
+            <div class="main-user-info">
+                <div class="user-input-box">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required />
+                </div>
+
+                <div class="user-input-box">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your Name" required />
+                </div>
+
+                <!-- <div class="user-input-box">
+                    <label for="cname">College Name</label>
+                    <input type="text" id="cname" name="cname" placeholder="Enter your College Name" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="clocation">College Location</label>
+                    <input type="text" id="clocation" name="clocation" placeholder="Enter your College Location"
+                        required />
+                </div> -->
+                <!-- <div class="user-input-box">
+                    <label for="Approval_status">Approval_status</label>
+                    <input type="text" id="Approval_status" name="Approval_status" placeholder="Enter Approval_status" />
+                </div>
+                <div class="user-input-box">
+                    <label for="Food_Preference">Food_Preference</label>
+                    <input type="text" id="Food_Preference" name="Food_Preference" placeholder="Enter Food_Preference" />
+                </div> -->
+                <div class="user-input-box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password"
+                        required />
+                </div>
+                <div class="user-input-box">
+                    <label for="passkey">PassKey</label>
+                    <input type="password" id="passkey" name="passkey" placeholder="Enter Secret PassKey" required />
+                </div>
+            </div>
+
+            <div class="form-submit-btn">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

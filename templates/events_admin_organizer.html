@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event - Landing Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        .timeline-badge {
+            background-color: #3498db;
+            border-radius: 50%;
+            padding: 8px;
+            color: #fff;
+        }
+
+        .timeline-panel {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-heading h4 {
+            color: #333;
+        }
+
+        .timeline-desc {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .button, .btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover, .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .fixed-button-left {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1050;
+        }
+
+        .fixed-button-right {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 80px; /* Adjusted to not overlap the fixed buttons */
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da; /* Error message background color */
+            color: #721c24; /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 8s forwards; /* Automatically fade out after 8 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Fixed position Back button -->
+    <a href="{{ url_for('index') }}" class="btn fixed-button-left">Back</a>
+    <!-- Conditionally displayed fixed position Add New Event button for admin users -->
+    {% if current_user_role == 'admin' %}
+    <a href="{{ url_for('add_event') }}" class="btn fixed-button-right">Add a new event</a>
+    {% endif %}
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center mb-4">Events Schedule</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="timeline">
+                        {% for event in events %}
+                        <li>
+                            <div class="timeline-badge">
+                                <a><i class="fa fa-circle" id=""></i></a>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>{{ event.name }}</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="timeline-desc">Event ID: {{ event.event_id }}</p>
+                                    <p class="timeline-desc">Date: {{ event.date }}</p>
+                                    <p class="timeline-desc">Starting Time: {{ event.starting_time.strftime('%I:%M %p') }}</p>
+                                    <p class="timeline-desc">Budget: {{ event.budget }}</p>
+                                    <p class="timeline-desc">Event Type: {{ event.event_type }}</p>
+                                    <p class="timeline-desc">Max Participants: {{ event.Max_participants }}</p>
+                                    <p class="timeline-desc">Remaining Spots: {{ event.remaining_spots }}</p>
+                                    <p class="timeline-desc">Organizing Team ID: {{ event.team_id }}</p>
+                                    <p class="timeline-desc">Organizing Team Name: {{ event.team_name }}</p>
+                                    <p class="timeline-desc">Organizing Team Responsibility: {{ event.team_responsibility }}</p>
+                                    <p class="timeline-desc">Actions:
+                                        <!-- Update button/link -->
+                                        <a href="/update_event/{{ event.event_id }}" class="button">Update</a>
+                                        <!-- Delete button, wrapped in a form to send a POST request -->
+                                        <form action="/delete_event/{{ event.event_id }}" method="post" class="inline">
+                                            <input type="submit" value="Delete" class="button" onclick="return confirm('Are you sure you want to delete this event?');">
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

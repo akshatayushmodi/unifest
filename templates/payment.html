@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- custom css file link  -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            /* text-transform: uppercase; */
+        }
+
+        .container {
+            min-height: 100vh;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+            padding-bottom: 60px;
+        }
+
+        .container form {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, .1);
+            padding: 20px;
+            width: 600px;
+            padding-top: 160px;
+        }
+
+        .container form .inputBox {
+            margin-top: 20px;
+        }
+
+        .container form .inputBox span {
+            display: block;
+            color: #999;
+            padding-bottom: 5px;
+        }
+
+        .container form .inputBox input,
+        .container form .inputBox select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, .3);
+            color: #444;
+        }
+
+        .container form .flexbox {
+            display: flex;
+            gap: 15px;
+        }
+
+        .container form .flexbox .inputBox {
+            flex: 1 1 150px;
+        }
+
+        .container form .submit-btn {
+            width: 100%;
+            /* background: linear-gradient(45deg, blueviol, deeppink); */
+            background: rgba(63, 114, 76, 0.7);
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .2s linear;
+        }
+
+        .container form .submit-btn:hover {
+            background: rgba(56, 204, 93, 0.7);
+            letter-spacing: 2px;
+            /* opacity: .8; */
+        }
+
+        .container .card-container {
+            margin-bottom: -150px;
+            position: relative;
+            height: 250px;
+            width: 400px;
+        }
+
+        .container .card-container .front {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            /* background: linear-gradient(45deg, rgba(63, 114, 76, 0.7), rgba(56, 204, 93, 0.7)); */
+            background: #E9A178;
+            /* border: 2px solid var(--yellow); */
+            border-radius: 5px;
+            backface-visibility: hidden;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
+            padding: 20px;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform .4s ease-out;
+        }
+
+        .container .card-container .front .image {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+        }
+
+        .container .card-container .front .image img {
+            height: 50px;
+        }
+
+        .container .card-container .front .card-number-box {
+            padding: 30px 0;
+            font-size: 22px;
+            color: #fff;
+        }
+
+        .container .card-container .front .flexbox {
+            display: flex;
+        }
+
+        .container .card-container .front .flexbox .box:nth-child(1) {
+            margin-right: auto;
+        }
+
+        .container .card-container .front .flexbox .box {
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .container .card-container .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            /* background: linear-gradient(45deg, blueviolet, deeppink); */
+            background: #E9A178;
+            border-radius: 5px;
+            padding: 20px 0;
+            text-align: right;
+            backface-visibility: hidden;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
+            transform: perspective(1000px) rotateY(180deg);
+            transition: transform .4s ease-out;
+        }
+
+        .container .card-container .back .stripe {
+            background: #000;
+            width: 100%;
+            margin: 10px 0;
+            height: 50px;
+        }
+
+        .container .card-container .back .box {
+            padding: 0 20px;
+        }
+
+        .container .card-container .back .box span {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .container .card-container .back .box .cvv-box {
+            height: 50px;
+            padding: 10px;
+            margin-top: 5px;
+            color: #333;
+            background: #fff;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .container .card-container .back .box img {
+            margin-top: 30px;
+            height: 30px;
+        }
+
+
+        :root {
+            --yellow: #f9ca24;
+        }
+
+        * {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            outline: none;
+            border: none;
+            /* text-transform: capitalize; */
+            transition: all .2s linear;
+            scroll-behavior: smooth;
+        }
+
+        *::selection {
+            background: var(--yellow);
+            color: #333;
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: #111;
+            overflow-x: hidden;
+            padding-left: 35rem;
+        }
+
+        section.about {
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .btn {
+            padding: .7rem 3rem;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-size: 2rem;
+            border-radius: 5rem;
+        }
+
+        .btn i {
+            padding: 0 .5rem;
+            font-size: 1.8rem;
+        }
+
+        .btn:hover {
+            background: var(--yellow);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 100%;
+            width: 35rem;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+            text-align: center;
+        }
+
+        header .user img {
+            height: 17rem;
+            width: 17rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: .7rem solid var(--yellow)
+        }
+
+        header .user .name {
+            font-size: 3.5rem;
+            color: #fff;
+        }
+
+        header .user .post {
+            font-size: 2rem;
+            color: #eee;
+        }
+
+        header .navbar {
+            width: 100%;
+        }
+
+        header .navbar ul {
+            list-style: none;
+            padding: 1rem 3rem;
+        }
+
+        header .navbar ul li a {
+            display: block;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            background: #333;
+            color: #fff;
+            font-size: 2rem;
+            border-radius: 5rem;
+        }
+
+        header .navbar ul li a:hover {
+            background: var(--yellow);
+
+        }
+
+        #menu {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+            font-size: 2.5rem;
+            padding: 1rem 1.5rem;
+            z-index: 1000;
+            display: none;
+        }
+
+
+
+        @media (max-width:1200px) {
+
+            html {
+                font-size: 55%;
+            }
+        }
+
+        @media (max-width:991px) {
+
+            header {
+                left: -120%;
+            }
+
+            #menu {
+                display: block;
+            }
+
+            header.toggle {
+                left: 0%;
+            }
+
+            body {
+                padding: 0;
+            }
+        }
+
+        @media (max-width:768px) {
+
+            html {
+                font-size: 50%;
+            }
+
+
+        }
+
+        @media (max-width:400px) {
+
+            header {
+                width: 100vw;
+            }
+
+
+        }
+
+
+
+        .heading {
+            text-align: center;
+            margin: 0 6rem;
+            font-size: 4rem;
+            padding: 1rem;
+            border-bottom: .1rem solid #fff4;
+            color: #fff;
+        }
+
+        .heading span {
+            color: var(--yellow);
+        }
+
+        .about .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        .about .row .info {
+            flex: 1 1 48rem;
+            padding: 2rem 1rem;
+            padding-left: 6rem;
+        }
+
+        .about .row .info h3 {
+            font-size: 2rem;
+            color: var(--yellow);
+            padding: 1rem 0;
+            font-weight: normal;
+        }
+
+        .about .row .info h3 span {
+            color: #eee;
+            padding: 0 .5rem;
+        }
+
+        section.table {
+            width: auto;
+            position: relative;
+            left: auto;
+            right: auto;
+            height: 90vh;
+            background-color: #111;
+
+            backdrop-filter: blur(7px);
+            box-shadow: 0 .4rem .8rem #0005;
+            border-radius: .8rem;
+            font-size: 2rem;
+            color: #fff;
+
+            /* overflow: hidden; */
+        }
+
+        .table__header {
+            width: 100%;
+            height: 10%;
+            background-color: #111;
+            padding: .8rem 1rem;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 6rem;
+        }
+
+        .table__header .input-group {
+            width: 35%;
+            height: 100%;
+            background-color: #fff5;
+            padding: 0 .8rem;
+            border-radius: 2rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: .2s;
+        }
+
+        .table__header .input-group:hover {
+            width: 45%;
+            background-color: #fff8;
+            box-shadow: 0 .1rem .4rem #0002;
+        }
+
+        .table__header .input-group img {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .table__header .input-group input {
+            width: 100%;
+            padding: 0 .5rem 0 .3rem;
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .table__body {
+            width: 95%;
+            max-height: calc(89% - 1.6rem);
+            background-color: #111;
+
+            margin: .8rem auto;
+            border-radius: .6rem;
+
+            /* overflow: auto; */
+            /* overflow: overlay; */
+        }
+
+        .table__body::-webkit-scrollbar {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        .table__body::-webkit-scrollbar-thumb {
+            border-radius: .5rem;
+            background-color: #fff;
+            visibility: hidden;
+        }
+
+        .table__body:hover::-webkit-scrollbar-thumb {
+            visibility: visible;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td img {
+            width: 36px;
+            height: 36px;
+            margin-right: .5rem;
+            border-radius: 50%;
+
+            vertical-align: middle;
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: var(--yellow);
+            cursor: pointer;
+            text-transform: capitalize;
+            color: #111;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #0000000b;
+        }
+
+        tbody tr {
+            --delay: .1s;
+            transition: .5s ease-in-out var(--delay), background-color 0s;
+        }
+
+        tbody tr.hide {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        tbody tr:hover {
+            background-color: #fff6;
+        }
+
+        tbody tr td,
+        tbody tr td p,
+        tbody tr td img {
+            transition: .2s ease-in-out;
+        }
+
+        tbody tr.hide td,
+        tbody tr.hide td p {
+            padding: 0;
+            font: 0 / 0 sans-serif;
+            transition: .2s ease-in-out .5s;
+        }
+
+        tbody tr.hide td img {
+            width: 0;
+            height: 0;
+            transition: .2s ease-in-out .5s;
+        }
+
+        .status {
+            padding: .4rem 0;
+            border-radius: 2rem;
+            text-align: center;
+        }
+
+        .status.delivered {
+            background-color: #86e49d;
+            color: #006b21;
+        }
+
+        .status.cancelled {
+            background-color: #d893a3;
+            color: #b30021;
+        }
+
+        .status.pending {
+            background-color: #ebc474;
+        }
+
+        .status.shipped {
+            background-color: #6fcaea;
+        }
+
+
+        @media (max-width: 1000px) {
+            td:not(:first-of-type) {
+                min-width: 12.1rem;
+            }
+        }
+
+        thead th span.icon-arrow {
+            display: inline-block;
+            width: 1.3rem;
+            height: 1.3rem;
+            border-radius: 50%;
+            border: 1.4px solid transparent;
+
+            text-align: center;
+            font-size: 1rem;
+
+            margin-left: .5rem;
+            transition: .2s ease-in-out;
+        }
+
+        thead th:hover span.icon-arrow {
+            border: 1.4px solid #111;
+            /* width: 1.5rem; */
+            /* height: 1.5rem; */
+            /* font-size: large; */
+        }
+
+        thead th:hover {
+            color: red;
+        }
+
+        thead th.active span.icon-arrow {
+            background-color: #111;
+            color: #fff;
+        }
+
+        thead th.asc span.icon-arrow {
+            transform: rotate(180deg);
+        }
+
+        thead th.active,
+        tbody td.active {
+            color: #fff;
+        }
+
+        .export__file {
+            position: relative;
+        }
+
+        .export__file .export__file-btn {
+            display: inline-block;
+            width: 4rem;
+            height: 4rem;
+            background: #fff url(../static/export.png) center / 80% no-repeat;
+            border-radius: 50%;
+            transition: .2s ease-in-out;
+        }
+
+        .export__file .export__file-btn:hover {
+            background-color: var(--yellow);
+            transform: scale(1.15);
+            cursor: pointer;
+        }
+
+        .export__file input {
+            display: none;
+        }
+
+        .export__file .export__file-options {
+            position: absolute;
+            right: 0;
+
+            width: 12rem;
+            border-radius: .5rem;
+            overflow: hidden;
+            text-align: center;
+
+            opacity: 0;
+            transform: scale(.8);
+            transform-origin: top right;
+
+            box-shadow: 0 .2rem .5rem #0004;
+
+            transition: .2s;
+        }
+
+        .export__file input:checked+.export__file-options {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 100;
+        }
+
+        .export__file .export__file-options label {
+            display: block;
+            width: 100%;
+            padding: .6rem 0;
+            background-color: #111;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            transition: .2s ease-in-out;
+        }
+
+        .export__file .export__file-options label:first-of-type {
+            padding: 1rem 0;
+            background-color: var(--yellow);
+        }
+
+        .export__file .export__file-options label:hover {
+            transform: scale(1.05);
+            background-color: #fff;
+            cursor: pointer;
+            color: #111;
+        }
+
+        .export__file .export__file-options img {
+            width: 2rem;
+            height: auto;
+        }
+
+
+        .search {
+            margin-top: 15rem;
+            height: 100vh;
+        }
+
+        .registration-form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+        }
+
+        .registration-form p {
+            font-size: 20px;
+            margin: 15px 0;
+            color: var(--yellow);
+        }
+
+        .registration-form input {
+            font-size: 16px;
+            padding: 15px 10px;
+            width: 100%;
+            border: 0;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .update {
+            margin-top: 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+
+        <div class="user">
+            <!-- <i class="fa-solid fa-user icon fa-4x"></i> -->
+            <img src="../static/2.png" alt="">
+            <h3 class="name">{{user}}</h3>
+
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('request_accommodation') }} ">Back</a></li>
+                <!-- <li><a href="#issue">Issued books</a></li>
+                <li><a href="#search">search</a></li> -->
+            </ul>
+        </nav>
+
+    </header>
+
+    <div id="menu" class="fas fa-bars"></div>
+    <section>
+        <div class="container">
+
+            <div class="card-container">
+
+                <div class="front">
+                    <div class="image">
+                        <img src="../static/chip.png" alt="">
+                        <img src="../static/visa.png" alt="">
+                    </div>
+                    <div class="card-number-box">################</div>
+                    <div class="flexbox">
+                        <div class="box">
+                            <span>card holder</span>
+                            <div class="card-holder-name">full name</div>
+                        </div>
+                        <div class="box">
+                            <span>expires</span>
+                            <div class="expiration">
+                                <span class="exp-month">mm</span>
+                                <span class="exp-year">yy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back">
+                    <div class="stripe"></div>
+                    <div class="box">
+                        <span>cvv</span>
+                        <div class="cvv-box"></div>
+                        <img src="../static/visa.png" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+            <form action="">
+                <div class="inputBox">
+                    <span>card number</span>
+                    <input type="text" maxlength="16" class="card-number-input">
+                </div>
+                <div class="inputBox">
+                    <span>card holder</span>
+                    <input type="text" class="card-holder-input">
+                </div>
+                <div class="flexbox">
+                    <div class="inputBox">
+                        <span>expiration mm</span>
+                        <select name="" id="" class="month-input">
+                            <option value="month" selected disabled>month</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                    <div class="inputBox">
+                        <span>expiration yy</span>
+                        <select name="" id="" class="year-input">
+                            <option value="year" selected disabled>year</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                        </select>
+                    </div>
+                    <div class="inputBox">
+                        <span>cvv</span>
+                        <input type="text" maxlength="4" class="cvv-input">
+                    </div>
+                </div>
+                <input type="submit" value="submit" class="submit-btn">
+            </form>
+
+        </div>
+    </section>
+
+
+
+
+
+
+    <script>
+
+        document.querySelector('.card-number-input').oninput = () => {
+            document.querySelector('.card-number-box').innerText = document.querySelector('.card-number-input').value;
+        }
+
+        document.querySelector('.card-holder-input').oninput = () => {
+            document.querySelector('.card-holder-name').innerText = document.querySelector('.card-holder-input').value;
+        }
+
+        document.querySelector('.month-input').oninput = () => {
+            document.querySelector('.exp-month').innerText = document.querySelector('.month-input').value;
+        }
+
+        document.querySelector('.year-input').oninput = () => {
+            document.querySelector('.exp-year').innerText = document.querySelector('.year-input').value;
+        }
+
+        document.querySelector('.cvv-input').onmouseenter = () => {
+            document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(-180deg)';
+            document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(0deg)';
+        }
+
+        document.querySelector('.cvv-input').onmouseleave = () => {
+            document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(0deg)';
+            document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(180deg)';
+        }
+
+        document.querySelector('.cvv-input').oninput = () => {
+            document.querySelector('.cvv-box').innerText = document.querySelector('.cvv-input').value;
+        }
+
+        let menu = document.querySelector('#menu');
+        let navbar = document.querySelector('header')
+
+        menu.onclick = () => {
+            menu.classList.toggle('fa-times');
+            navbar.classList.toggle('toggle');
+        }
+
+        window.onscroll = () => {
+            menu.classList.remove('fa-times');
+            navbar.classList.remove('toggle');
+
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+
+        * {
+            font-family: 'poppins', sans-serif;
+        }
+
+        body {
+            background-image: url('../static/reg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+        }
+
+        #username {
+            color: red;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .container {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px 0 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+
+        }
+
+        span {
+            color: #fff;
+            font-size: small;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0 10px 0;
+        }
+
+        header {
+            color: #fff;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0 10px 0;
+        }
+
+        .input-field .input {
+            height: 45px;
+            width: 87%;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 15px;
+            padding: 0 0 0 45px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        i {
+            position: relative;
+            top: -33px;
+            left: 17px;
+            color: #fff;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #fff;
+        }
+
+        .submit {
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            height: 45px;
+            outline: none;
+            width: 100%;
+            color: black;
+            background: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .submit:hover {
+            box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .two-col {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            color: #fff;
+            font-size: small;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .one {
+            display: flex;
+        }
+
+        label a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .reg {
+            color: #111;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .acc {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .clerk {
+            color: #fff;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .top a:hover {
+            color: #FE6244;
+            text-decoration: solid;
+        }
+
+        .one a:hover {
+            color: #86A3B8;
+        }
+
+        .one {
+            margin-top: 20px;
+        }
+
+        .two a:hover {
+            color: #86A3B8;
+        }
+
+        .two {
+            margin-top: 20px;
+        }
+    </style>
+    <style>
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            /* Error message background color */
+            color: #721c24;
+            /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 8s forwards;
+            /* Automatically fade out after 8 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="box">
+        <div class="container">
+            <div class="top">
+                <span class="acc">No account?&nbsp;&nbsp;<a href="reg" class="reg"><pre>Register  </pre></a> <pre>or   </pre><a href="/register_organizers" class="reg">  Register as Organizer</a></span>
+                <header>Login</header>
+            </div>
+            <form method="POST">
+                <div class="input-field">
+                    <input type="text" class="input" placeholder="Username" id="username" name="username" required>
+                    <i class='bx bx-user'></i>
+                </div>
+
+                <div class="input-field">
+                    <input type="Password" class="input" placeholder="Password" id="" name="password" required>
+                    <i class='bx bx-lock-alt'></i>
+                </div>
+
+
+
+                <div class="input-field">
+                    <input type="submit" class="submit" value="Login" id="">
+                </div>
+            </form>
+
+            <div class="two-col">
+                <div class="one">
+                    <label><a href="{{ url_for('forgot_password') }}" class="clerk">Forgot Username or Password?</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

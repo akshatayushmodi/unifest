@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event - Landing Page</title>
+    <style>
+        /* CSS styles from the second file */
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: rgba(0, 0, 50, 0.7);
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .schedule-menu {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .sub-text {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .timeline li {
+            margin-bottom: 40px;
+        }
+
+        .timeline-panel {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+        }
+
+        .timeline-heading h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .timeline-desc {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item {
+            display: block;
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        .register-btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            /* Remove default underline */
+            display: inline-block;
+            /* Ensure button appearance */
+            margin-top: 10px;
+            /* Adjust spacing */
+        }
+    </style>
+
+    <style>
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            /* Error message background color */
+            color: #721c24;
+            /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 10s forwards;
+            /* Automatically fade out after 10 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="content">
+        <div class="container box">
+            <section id="schedule" class="row">
+                <div class="title-start schedule-menu col-md-4 col-md-offset-4">
+                    <h2>Events Schedule</h2>
+                    <p class="sub-text">Check out the event details</p>
+                </div>
+                <ul class="timeline">
+                    <!-- Your event items here -->
+                    {% for event in events %}
+                    <li>
+                        <div class="timeline-badge">
+                            <a><i class="fa fa-circle" id=""></i></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>{{ event.name }}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="timeline-desc"><strong>Date:</strong> {{ event.date }}</p>
+                                <p class="timeline-desc"><strong>Starting Time:</strong> {{ event.starting_time }}
+                                </p>
+                                <p class="timeline-desc"><strong>Max Participants:</strong> {{
+                                    event.max_participants }}</p>
+                                <p class="timeline-desc"><strong>Remaining Spots:</strong> {{
+                                    event.remaining_spots }}</p>
+                                <p class="timeline-desc"><strong>Type:</strong> {{ event.event_type }}</p>
+                            </div>
+
+                            <form method="post">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </form>
+
+                        </div>
+                    </li>
+
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>

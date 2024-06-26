@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+    <style>
+        /* Basic Reset */
+        body, h2, form, input {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9eff1;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #064663;
+            font-size: 28px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        input[type=text],
+        input[type=date],
+        input[type=number],
+        input[type=time] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+
+        input[type=text]:focus,
+        input[type=date]:focus,
+        input[type=number]:focus,
+        input[type=time]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        input[type=submit]:hover {
+            background-color: #0056b3;
+        }
+
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeOut 8s forwards;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/events" class="back-button">← Back</a>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h2>Add a New Event</h2>
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="date">Date (YYYY-MM-DD):</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="Max_participants">Max Participants:</label>
+        <input type="number" id="Max_participants" name="Max_participants" required>
+
+        <label for="starting_time">Starting Time (HH:MM):</label>
+        <input type="time" id="starting_time" name="starting_time" required>
+
+        <label for="budget">Budget:</label>
+        <input type="text" id="budget" name="budget" required>
+
+        <label for="type">Event Type:</label>
+        <input type="text" id="type" name="type" required>
+
+        <label for="id">Team ID of organizing Team:</label>
+        <input type="text" id="id" name="id" required>
+
+        <input type="submit" value="Add Event">
+    </form>
+</body>
+
+</html>

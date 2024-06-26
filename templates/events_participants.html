@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event - Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Vibrant Gradient Background */
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #5562eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            /* Ensure it's above other elements */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #404e9c;
+        }
+
+        .content {
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            /* Astonishing Shading for Container */
+            background: #f1cca1;
+            box-shadow: 20px 20px 60px #d9d9d9,
+                -20px -20px 60px #ffffff;
+        }
+
+        .schedule-menu h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .sub-text {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .timeline li {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-panel {
+            position: relative;
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            box-shadow: 5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff;
+        }
+
+        .timeline-heading h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #6e8efb;
+            /* Vibrant Text Color */
+        }
+
+        .timeline-body p,
+        .timeline-body form {
+            margin: 5px 0;
+        }
+
+        .btn {
+        display: block; /* Changed from inline-block to block */
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        text-align: center;
+        width: auto; /* Changed from 100% to auto */
+        max-width: 200px; /* Set a maximum width for the button */
+        margin: 10px auto; /* Updated for top and bottom margin, auto for left and right */
+        border: none; /* Ensure the button doesn't have an outline */
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .schedule-menu h2 {
+                font-size: 20px;
+            }
+
+            .sub-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <style>
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            /* Error message background color */
+            color: #721c24;
+            /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 8s forwards;
+            /* Automatically fade out after 8 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <body>
+        <button class="back-button" onclick="window.location.href='/'">Back</button>
+        <div class="content">
+            <div class="container">
+                <div class="schedule-menu">
+                    <h2>Events Schedule</h2>
+                    <p class="sub-text">Check out the event details below</p>
+                </div>
+                <ul class="timeline">
+                    <!-- Your event items here -->
+                    {% for event in events %}
+                    <li>
+                        <div class="timeline-badge">
+                            <a><i class="fa fa-circle" id=""></i></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>{{ event.name }}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="timeline-desc"><strong>Date:</strong> {{ event.date }}</p>
+                                <p class="timeline-desc"><strong>Starting Time:</strong> {{ event.starting_time }}
+                                </p>
+                                <p class="timeline-desc"><strong>Max Participants:</strong> {{
+                                    event.max_participants }}</p>
+                                <p class="timeline-desc"><strong>Remaining Spots:</strong> {{
+                                    event.remaining_spots }}</p>
+                                <p class="timeline-desc"><strong>Type:</strong> {{ event.event_type }}</p>
+                            </div>
+                            {% if event.registered and status != "Approved" %}
+                            <form method="post">
+                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                <input type="hidden" name="action" value="cancel">
+                                <button type="submit" class="btn btn-danger">Cancel Registration</button>
+                            </form>
+                            {% else %}
+                            {% if status != "Approved" %}
+                            <form method="post">
+                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                <input type="hidden" name="action" value="register">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </form>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </li>
+
+                    {% endfor %}
+                </ul>
+                </section>
+            </div>
+        </div>
+    </body>
+
+</html>

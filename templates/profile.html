@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        .profile-info {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        .profile-info p {
+            margin: 10px 0;
+        }
+
+        .profile-info ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .profile-info ul li {
+            list-style-type: square;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <style>
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            /* Error message background color */
+            color: #721c24;
+            /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 8s forwards;
+            /* Automatically fade out after 8 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <h2>Profile of {{ profile_info.get('Username', 'None') }}</h2>
+            <p>Name: {{ profile_info.get('Name', 'None') }}</p>
+            <p>Email: {{ profile_info.get('Email', 'None') }}</p>
+            <p>Phone: {{ profile_info.get('Phone', 'None') }}</p>
+            {% if role == 'ext_participant' %}
+            <p>Accommodation: {{ profile_info.get('accomodation', 'None') }}</p>
+            {% if profile_info.get('food_preference', 'None') == False %}
+            <p>Food Preference: Veg</p>
+            {%elif profile_info.get('food_preference', 'None') == True %}
+            <p>Food Preference: Non-Veg</p>
+            {%else%}
+            <p>Food Preference: {{ profile_info.get('food_preference', 'None') }}</p>
+            {% endif %}
+            {% endif %}
+            {% if role == 'student' %}
+            <p>Events Registered:</p>
+            <ul>
+                {% for event in profile_info.get('events_registered', []) %}
+                <li>{{ event }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if role == 'volunteer' %}
+            <p>Events Volunteered:</p>
+            <ul>
+                {% for event in profile_info.get('events_volunteered', []) %}
+                <li>{{ event }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if role == 'organizer' %}
+            <p>Events Organized:</p>
+            <ul>
+                {% for event in profile_info.get('events_organized', []) %}
+                <li>{{ event }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="buttons">
+                <button class="button" onclick="location.href='/';">Back</button>
+                <button class="button" onclick="location.href='/update_profile';">Update Profile</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

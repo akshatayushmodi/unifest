@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizing Teams - Landing Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .schedule-menu {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .timeline-panel {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+
+        .add-team-button {
+            text-align: center;
+            margin-top: 20px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        .bttn {
+            background-color: #f8d7da;
+        }
+    </style>
+    <style>
+        /* Flash messages styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background-color: #f8d7da;
+            /* Error message background color */
+            color: #721c24;
+            /* Error message text color */
+            border-radius: 5px;
+            animation: fadeOut 8s forwards;
+            /* Automatically fade out after 8 seconds */
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Back button -->
+    <div class="back-button">
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
+
+    <!-- Add Team button -->
+    {% if user_role == 'admin' %}
+    <div class="add-team-button">
+        <a href="{{ url_for('add_org_team') }}" class="btn btn-primary">Add a new Organizing Team</a>
+    </div>
+    {% endif %}
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="schedule-menu">
+                        <h2>Organizing Teams</h2>
+                        <p class="sub-text">Check out the Organizing Teams details</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-80">
+                    <ul class="timeline">
+                        {% for team in teams %}
+                        <li class="col-md-70">
+                            <div class="timeline-panel">
+                                <div class="timeline-body">
+                                    <p class="timeline-desc">Organizing Team ID: {{ team.team_id }}</p>
+                                    <p class="timeline-desc">Organizing Team Name: {{ team.name }}</p>
+                                    <p class="timeline-desc">Organizing Team Responsibility: {{ team.responsibility }}</p>
+                                    <p class="timeline-desc">Events Organized by this Team: {{ team.event_details }}</p>
+                                    {% if user_role == 'admin' %}
+                                    <p class="timeline-desc">Actions:
+                                        <a href="/update_org_team/{{ team.team_id }}" class="btn btn-primary">Update</a>
+                                        <form action="/delete_org_team/{{ team.team_id }}" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Organizing Team? This would delete corresponding events also!!!');">Delete</button>
+                                        </form>
+                                    </p>
+                                    {% endif %}
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Role</th>
+                                                <th>Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for organizer in team_members %}
+                                            {% if organizer.team_id == team.team_id %}
+                                            <tr>
+                                                <td>{{ organizer.position }}</td>
+                                                <td>{{ organizer.Username }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% if user_role == 'admin' %}
+                                    <a href="/add_org_team_member/{{ team.team_id }}" class="btn btn-info">Update team members</a>
+                                    {% endif %}
+                                    <a href="/view_volunteer/{{ team.team_id }}" class="btn btn-secondary">View Volunteer</a>
+                                    <a href="/view_participants/{{ team.team_id }}" class="btn btn-success">View Participants</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

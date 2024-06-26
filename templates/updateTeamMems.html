@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Team</title>
+    <style>
+        /* CSS styles from the second file */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+ 
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 50, 0.7);
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .confirm-btn {
+            background-color: #28a745;
+            /* Green */
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            /* Remove default underline */
+            display: inline-block;
+            /* Ensure button appearance */
+            margin-top: 10px;
+            /* Adjust spacing */
+        }
+
+        .confirm-btn:hover {
+            background-color: #218838;
+            /* Darker green */
+        }
+        .back-button {
+
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .bttn{
+        background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+<h2>Update Team</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Action</th> <!-- New column for Confirm button -->
+    </tr>
+    {% for organiser1 in organiser %}
+    <tr>
+        <td>{{ organiser1.username }}</td>
+        <td>{{ organiser1.email }}</td>
+        <td>
+            <select class="position-select">
+                <option value="head">head</option>
+                <option value="secretary">secretary</option>
+                <option value="governor">governor</option>
+                <option value="associate">associate</option>
+                <option value="senior">senior</option>
+                <!-- Add other options dynamically if needed -->
+            </select>
+        </td>
+        <td>
+            <button class="confirm-button" data-username="{{ organiser1.username }}" data-email="{{ organiser1.email }}">Confirm</button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+    <a href="/list_org_team" class="back-button"><button class="bttn">Back</button></a>
+    <a href="/view_delete_org_team_member/{{ team_id }}" class="back-button">
+        <button class="bttn">Delete Members</button>
+    </a>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var confirmButtons = document.querySelectorAll('.confirm-button');
+        confirmButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var username = this.getAttribute('data-username');
+                var email = this.getAttribute('data-email');
+                var positionSelect = this.parentElement.parentElement.querySelector('.position-select');
+                var position = positionSelect.value;
+                submitForm(username, email, position);
+            });
+        });
+    });
+
+    function submitForm(username, email, position) {
+<!--        console.log("he{{organiser.team_id}}lo");-->
+        var form = document.createElement('form');
+        form.setAttribute('method', 'POST');
+<!--        form.setAttribute('action', '/add_org_team_member/{{organiser.team_id}}');-->
+
+        var usernameInput = document.createElement('input');
+        usernameInput.setAttribute('type', 'hidden');
+        usernameInput.setAttribute('name', 'username');
+        usernameInput.setAttribute('value', username);
+        form.appendChild(usernameInput);
+
+        var emailInput = document.createElement('input');
+        emailInput.setAttribute('type', 'hidden');
+        emailInput.setAttribute('name', 'email');
+        emailInput.setAttribute('value', email);
+        form.appendChild(emailInput);
+
+        var positionInput = document.createElement('input');
+        positionInput.setAttribute('type', 'hidden');
+        positionInput.setAttribute('name', 'position');
+        positionInput.setAttribute('value', position);
+        form.appendChild(positionInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
